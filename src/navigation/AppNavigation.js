@@ -7,11 +7,12 @@ import { THEME } from '../theme';
 
 const Stack = createNativeStackNavigator();
 const isIOS = Platform.OS !== 'android';
+
 export const AppNavigation = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={options}>
+      <Stack.Navigator initialRouteName="Home" screenOptions={mainOptions}>
         <Stack.Screen name="Home" component={MainScreen} />
         <Stack.Screen name="Post" component={PostScreen} />
       </Stack.Navigator>
@@ -19,7 +20,7 @@ export const AppNavigation = () => {
   );
 };
 
-const options = {
+const mainOptions = {
   headerStyle: {
     backgroundColor: isIOS ? '#fff' : THEME.MAIN_COLOR,
   },
