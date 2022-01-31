@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect } from 'react';
-import { StyleSheet, View, Image, Text, Button, ScrollView, Alert } from 'react-native';
+import { Alert, Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { DATA } from '../data';
 import { THEME } from '../theme';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
