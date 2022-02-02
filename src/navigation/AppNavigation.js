@@ -18,8 +18,9 @@ function PostNavigator() {
     <Stack.Navigator screenOptions={{
       headerStyle: {
         backgroundColor: isIOS ? '#fff' : THEME.MAIN_COLOR,
-        headerTintColor: isIOS ? THEME.MAIN_COLOR : '#fff',
-      }
+      },
+      headerTintColor: !isIOS ? '#fff' : THEME.MAIN_COLOR,
+      initialRoute: 'Main',
     }}>
       <Stack.Screen name="Main" component={MainScreen} />
       <Stack.Screen name="Post" component={PostScreen} />
@@ -32,10 +33,10 @@ function BookedNavigator() {
     <Stack.Navigator screenOptions={{
       headerStyle: {
         backgroundColor: isIOS ? '#fff' : THEME.MAIN_COLOR,
-        headerTintColor: isIOS ? THEME.MAIN_COLOR : '#fff'
-      }
+      },
+      headerTintColor: !isIOS ? '#fff' : THEME.MAIN_COLOR,
+      initialRoute: 'Booked',
     }}>
-      <Stack.Screen name="Post" component={PostScreen} />
       <Stack.Screen name="Booked" component={BookedScreen} />
     </Stack.Navigator>
   );
@@ -44,7 +45,7 @@ function BookedNavigator() {
 export const AppNavigation = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home" screenOptions={mainOptions}>
+      <Tab.Navigator initialRouteName="Post" screenOptions={mainOptions}>
         <Tab.Screen name="Post" component={PostNavigator} options={{
           tabBarIcon: (info) => (
             <Ionicons name="ios-albums" size={25} color={info.color} />
@@ -65,8 +66,9 @@ const mainOptions = {
   headerStyle: {
     backgroundColor: isIOS ? '#fff' : THEME.MAIN_COLOR,
   },
-  headerTintColor: isIOS ? THEME.MAIN_COLOR : '#fff',
+  headerTintColor: !isIOS ? '#fff' : THEME.MAIN_COLOR,
   headerTitleStyle: {
     fontWeight: 'bold',
   },
+  tabBarActiveTintColor: THEME.MAIN_COLOR,
 };

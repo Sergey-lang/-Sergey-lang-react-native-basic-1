@@ -6,7 +6,8 @@ import { AppHeaderIcon } from '../components/AppHeaderIcon';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 export const PostScreen = ({ route, navigation }) => {
-  const { postId, booked } = route.params;
+  const booked= route.params.booked;
+  const postId= route.params.postId;
 
   const iconName = booked ? 'ios-star' : 'ios-star-outline';
 
