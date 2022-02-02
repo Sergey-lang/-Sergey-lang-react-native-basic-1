@@ -1,9 +1,9 @@
 import React, { useLayoutEffect } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
 import { DATA } from '../data';
 import { Post } from '../components/Post';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
+import { PostList } from '../components/PostList';
 
 export const MainScreen = ({ navigation }) => {
 
@@ -27,18 +27,6 @@ export const MainScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
-  return (
-    <View style={styles.wrap}>
-      <FlatList data={DATA}
-                keyExtractor={(post) => post.id.toString()}
-                renderItem={({ item }) => <Post post={item} onOpen={openPostHandler} />} />
-    </View>
-  );
+  return <PostList data={DATA} onOpen={openPostHandler}/>
 };
-
-const styles = StyleSheet.create({
-  wrap: {
-    padding: 10,
-  },
-});
 
