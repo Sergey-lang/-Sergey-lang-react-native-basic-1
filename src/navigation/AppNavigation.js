@@ -6,13 +6,17 @@ import { THEME } from '../theme';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { BookedScreen } from '../screens/BookedScreen';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
+import { AboutScreen } from '../screens/AboutScreen';
+import { CreateScreen } from '../screens/CreateScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 const MTab = createMaterialBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 const isIOS = Platform.OS !== 'android';
 
 const navigatorOptions = {
@@ -64,6 +68,16 @@ function BookedNavigator() {
       <Stack.Screen name="Booked" component={BookedScreen} />
       <Stack.Screen name="Post" component={PostScreen} />
     </Stack.Navigator>
+  );
+}
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator screenOptions={navigatorOptions}>
+      <Drawer.Screen name="Main" component={MainScreen} />
+      <Drawer.Screen name="About" component={AboutScreen} />
+      <Drawer.Screen name="Create" component={CreateScreen} />
+    </Drawer.Navigator>
   );
 }
 
