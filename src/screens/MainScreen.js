@@ -15,18 +15,24 @@ export const MainScreen = ({ navigation }) => {
     navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-          <Item title="Take photo" iconName="ios-camera" onPress={() => console.log('Press photo')} />
+          <Item
+            title="Take photo"
+            iconName="ios-camera"
+            onPress={() => navigation.navigate('Create')} />
         </HeaderButtons>
       ),
       headerLeft: () => (
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-          <Item title="Toggle Drawer" iconName="ios-menu" onPress={() => navigation.toggleDrawer()} />
+          <Item
+            title="Toggle Drawer"
+            iconName="ios-menu"
+            onPress={() => navigation.toggleDrawer()} />
         </HeaderButtons>
       ),
       title: 'Home',
     });
   }, [navigation]);
 
-  return <PostList data={DATA} onOpen={openPostHandler}/>
+  return <PostList data={DATA} onOpen={openPostHandler} />;
 };
 

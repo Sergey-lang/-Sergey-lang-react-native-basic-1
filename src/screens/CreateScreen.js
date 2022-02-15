@@ -12,7 +12,7 @@ export const CreateScreen = ({ navigation }) => {
           <Item title="Toggle Drawer" iconName="ios-menu" onPress={() => navigation.toggleDrawer()} />
         </HeaderButtons>
       ),
-      title: 'Create',
+      title: 'Create post',
     });
   }, [navigation]);
 

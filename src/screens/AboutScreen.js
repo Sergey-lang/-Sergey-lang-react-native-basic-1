@@ -9,16 +9,20 @@ export const AboutScreen = ({ navigation }) => {
     navigation.setOptions({
       headerLeft: () => (
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-          <Item title="Toggle Drawer" iconName="ios-menu" onPress={() => navigation.toggleDrawer()} />
+          <Item
+            title="Toggle Drawer"
+            iconName="ios-menu"
+            onPress={() => navigation.toggleDrawer()} />
         </HeaderButtons>
       ),
-      title: 'About',
+      title: 'About Application',
     });
   }, [navigation]);
 
   return (
     <View style={styles.center}>
-      <Text>About screen</Text>
+      <Text style={styles.text}>It's base app for learning react native.</Text>
+      <Text style={styles.text}>App version <Text style={styles.version}>1.0.0</Text></Text>
     </View>
   );
 };
@@ -28,5 +32,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 30,
   },
+  version: {
+    fontFamily: 'open-sans-bold'
+  },
+  text: {
+    textAlign: 'center'
+  }
 });

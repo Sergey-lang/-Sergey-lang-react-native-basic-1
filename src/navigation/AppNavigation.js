@@ -71,37 +71,82 @@ function BookedNavigator() {
   );
 }
 
+function MainScreenNavigation() {
+  const tabConfig = !isIOS ? Tab : MTab;
+  return (
+    <tabConfig.Navigator initialRouteName="Post" screenOptions={options}>
+      <tabConfig.Screen name="Top" component={PostNavigator} options={{
+        tabBarIcon: (info) => (
+          <Ionicons name="ios-albums" size={25} color={info.color} />
+        ),
+        tabBarLabel: 'All',
+      }} />
+      <tabConfig.Screen name="Bottom" component={BookedNavigator} options={{
+        tabBarIcon: (info) => (
+          <Ionicons name="ios-star" size={25} color={info.color} />
+        ),
+        tabBarLabel: 'Favourite',
+      }} />
+    </tabConfig.Navigator>
+
+  );
+}
+
+function AboutNavigator() {
+  return (
+    <Stack.Navigator screenOptions={navigatorOptions}>
+      <Stack.Screen name="About" component={AboutScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function CreateNavigator() {
+  return (
+    <Stack.Navigator screenOptions={navigatorOptions}>
+      <Stack.Screen name="Create" component={CreateScreen} />
+    </Stack.Navigator>
+  );
+}
+
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator screenOptions={navigatorOptions}>
-      <Drawer.Screen name="Main" component={MainScreen} />
-      <Drawer.Screen name="About" component={AboutScreen} />
-      <Drawer.Screen name="Create" component={CreateScreen} />
+    <Drawer.Navigator screenOptions={{
+      drawerActiveTintColor: THEME.MAIN_COLOR,
+      drawerLabelStyle: {
+        fontFamily: 'open-sans-bold'
+      }
+    }} >
+      <Drawer.Screen name="Main"
+                     component={MainScreenNavigation}
+                     options={{
+                       headerShown: false,
+                       drawerLabel: 'Main',
+                       // drawerIcon: () => <Ionicons name="ios-star"/>
+                     }} />
+      <Drawer.Screen name="About"
+                     component={AboutNavigator}
+                     options={{
+                       headerShown: false,
+                       drawerLabel: 'About App',
+                     }} />
+      <Drawer.Screen name="Create"
+                     component={CreateNavigator}
+                     options={{
+                       headerShown: false,
+                       drawerLabel: 'New Post',
+                     }} />
     </Drawer.Navigator>
   );
 }
 
-
 const options = !isIOS ? mainOptions : materialOptions;
 
 export const AppNavigation = () => {
-  const tabConfig = !isIOS ? Tab : MTab;
   return (
     <NavigationContainer>
-      <tabConfig.Navigator initialRouteName="Post" screenOptions={options}>
-        <tabConfig.Screen name="Top" component={PostNavigator} options={{
-          tabBarIcon: (info) => (
-            <Ionicons name="ios-albums" size={25} color={info.color} />
-          ),
-          tabBarLabel: 'All',
-        }} />
-        <tabConfig.Screen name="Bottom" component={BookedNavigator} options={{
-          tabBarIcon: (info) => (
-            <Ionicons name="ios-star" size={25} color={info.color} />
-          ),
-          tabBarLabel: 'Favourite',
-        }} />
-      </tabConfig.Navigator>
+      <Drawer.Navigator screenOptions={options}>
+        <Drawer.Screen name="Drawer" component={DrawerNavigator} />
+      </Drawer.Navigator>
     </NavigationContainer>
   );
 };
