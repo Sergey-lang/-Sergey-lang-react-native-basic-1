@@ -95,7 +95,7 @@ function MainScreenNavigation() {
 function AboutNavigator() {
   return (
     <Stack.Navigator screenOptions={navigatorOptions}>
-      <Stack.Screen name="About" component={AboutScreen} />
+      <Stack.Screen name="AboutPage" component={AboutScreen} />
     </Stack.Navigator>
   );
 }
@@ -103,7 +103,7 @@ function AboutNavigator() {
 function CreateNavigator() {
   return (
     <Stack.Navigator screenOptions={navigatorOptions}>
-      <Stack.Screen name="Create" component={CreateScreen} />
+      <Stack.Screen name="CreatePage" component={CreateScreen} />
     </Stack.Navigator>
   );
 }
@@ -121,7 +121,6 @@ function DrawerNavigator() {
                      options={{
                        headerShown: false,
                        drawerLabel: 'Main',
-                       // drawerIcon: () => <Ionicons name="ios-star"/>
                      }} />
       <Drawer.Screen name="About"
                      component={AboutNavigator}

@@ -1,11 +1,18 @@
-import React, { useLayoutEffect } from 'react';
-import { DATA } from '../data';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Post } from '../components/Post';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
 import { PostList } from '../components/PostList';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadPosts } from '../store/actions/post';
 
 export const MainScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const allPosts = useSelector((state) => state.post.allPosts);
+
+  useEffect(() => {
+    dispatch(loadPosts());
+  }, []);
 
   const openPostHandler = (post) => {
     navigation.navigate('Post', { postId: post.id, date: post.date, booked: post.booked });
@@ -33,6 +40,13 @@ export const MainScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
-  return <PostList data={DATA} onOpen={openPostHandler} />;
+  return (
+    <PostList
+      data={allPosts}
+      onOpen={openPostHandler}
+    />
+  );
 };
+
+
 

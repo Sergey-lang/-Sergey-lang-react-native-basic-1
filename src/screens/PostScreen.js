@@ -1,37 +1,58 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect } from 'react';
 import { Alert, Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { DATA } from '../data';
 import { THEME } from '../theme';
 import { AppHeaderIcon } from '../components/AppHeaderIcon';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import { useDispatch, useSelector } from 'react-redux';
+import { removePost, toggleBooked } from '../store/actions/post';
 
 export const PostScreen = ({ route, navigation }) => {
-  const booked= route.params.booked;
-  const postId= route.params.postId;
+  const dispatch = useDispatch();
+  const postId = route.params.postId;
 
-  const iconName = booked ? 'ios-star' : 'ios-star-outline';
+  const bookedPost = useSelector((state) => state.post.bookedPosts
+    .some((post) => post.id === postId));
 
-  const post = DATA.find((p) => p.id === postId);
+  const currentPost = useSelector((state) => state.post.allPosts
+    .find((p) => p.id === postId));
 
-  useEffect(()=> {
-    navigation.setParams( { booked: post.booked })
-  },[])
+  const selectedIconName = bookedPost ? 'ios-star' : 'ios-star-outline';
+
+  const toggleHandler = useCallback(() => {
+    dispatch(toggleBooked(postId));
+  }, [dispatch, postId]);
+
+  useEffect(() => {
+    navigation.setParams({ booked: bookedPost });
+  }, [bookedPost]);
+
+  useEffect(() => {
+    navigation.setParams({ toggleHandler });
+  }, [toggleHandler, postId]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
-          <Item title="Take photo" iconName={iconName} onPress={()=> console.log('Press photo')}/>
+          <Item
+            title="Take photo"
+            iconName={selectedIconName}
+            onPress={toggleHandler}
+          />
         </HeaderButtons>
       ),
       title: 'Post from ' + new Date(route.params.date).toLocaleDateString()
     });
-  }, [navigation]);
+  }, [navigation, bookedPost]);
+
+  if (!currentPost) {
+    return null;
+  }
 
   const removeHandler = () => {
     Alert.alert(
       'Deleting',
-      `Are you sure? Post ${post.id} will delete.`,
+      `Are you sure? Post ${currentPost.id} will delete.`,
       [
         {
           text: 'Cancel',
@@ -40,7 +61,9 @@ export const PostScreen = ({ route, navigation }) => {
         {
           text: 'Delete',
           style: 'destructive',
-          onPress: async () => {
+          onPress() {
+            dispatch(removePost(postId));
+            navigation.navigate('Main');
           },
         },
       ],
@@ -50,11 +73,15 @@ export const PostScreen = ({ route, navigation }) => {
 
   return (
     <ScrollView>
-      <Image source={{ uri: post.img }} style={styles.image} />
+      <Image source={{ uri: currentPost.img }} style={styles.image} />
       <View style={styles.textWrap}>
-        <Text style={styles.title}>{post.text}</Text>
+        <Text style={styles.title}>{currentPost.text}</Text>
       </View>
-      <Button title="Delete" color={THEME.DANGER_COLOR} onPress={removeHandler} />
+      <Button
+        title="Delete"
+        color={THEME.DANGER_COLOR}
+        onPress={removeHandler}
+      />
     </ScrollView>
   );
 };
