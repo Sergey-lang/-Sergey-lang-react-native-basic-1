@@ -1,7 +1,6 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import {
   Button,
-  Image,
   Keyboard,
   ScrollView,
   StyleSheet,
@@ -15,12 +14,12 @@ import { AppHeaderIcon } from '../components/AppHeaderIcon';
 import { THEME } from '../theme';
 import { useDispatch } from 'react-redux';
 import { addPost } from '../store/actions/post';
-
-const img = 'https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg';
+import { PhotoPicker } from '../components/PhotoPicker';
 
 export const CreateScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
+  const imgRef = useRef();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -42,10 +41,14 @@ export const CreateScreen = ({ navigation }) => {
       date: new Date().toJSON(),
       booked: false,
       text,
-      img,
+      img: imgRef.current,
     };
     dispatch(addPost(post));
     navigation.navigate('Main');
+  };
+
+  const photoPickHandler = (uri) => {
+    imgRef.current = uri;
   };
 
   return (
@@ -60,14 +63,12 @@ export const CreateScreen = ({ navigation }) => {
             onChangeText={setText}
             multiline
           />
-          <Image
-            style={{ width: '100%', height: 200, marginBottom: 10 }}
-            source={{ uri: img }}
-          />
+          <PhotoPicker onPick={photoPickHandler} />
           <Button
             title="Create new post"
             color={THEME.MAIN_COLOR}
             onPress={saveHandler}
+            disabled={!text}
           />
         </View>
       </TouchableWithoutFeedback>

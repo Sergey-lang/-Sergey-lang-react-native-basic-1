@@ -26,12 +26,13 @@ export const PostScreen = ({ route, navigation }) => {
     navigation.setParams({ booked: bookedPost });
   }, [bookedPost]);
 
-  useEffect(() => {
-    navigation.setParams({ toggleHandler });
-  }, [toggleHandler, postId]);
+  // useEffect(() => {
+  //   navigation.setParams({ toggleHandler });
+  // }, [toggleHandler, postId]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
+      toggleHandler,
       headerRight: () => (
         <HeaderButtons HeaderButtonComponent={AppHeaderIcon}>
           <Item
