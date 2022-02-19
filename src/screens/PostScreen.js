@@ -19,8 +19,8 @@ export const PostScreen = ({ route, navigation }) => {
   const selectedIconName = bookedPost ? 'ios-star' : 'ios-star-outline';
 
   const toggleHandler = useCallback(() => {
-    dispatch(toggleBooked(postId));
-  }, [dispatch, postId]);
+    dispatch(toggleBooked(currentPost));
+  }, [dispatch, postId, currentPost]);
 
   useEffect(() => {
     navigation.setParams({ booked: bookedPost });
