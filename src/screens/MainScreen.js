@@ -39,7 +39,7 @@ export const MainScreen = ({ navigation }) => {
             onPress={() => navigation.toggleDrawer()} />
         </HeaderButtons>
       ),
-      title: 'Home',
+      title: 'Home Page',
     });
   }, [navigation]);
 
